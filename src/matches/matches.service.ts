@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Matches } from './entities/match.entity';
 
-export interface GroupedMatches {
+export class GroupedMatches {
     dates: string;
     cnt: number;
 }
