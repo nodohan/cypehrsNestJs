@@ -1,23 +1,31 @@
-import { Entity, PrimaryColumn, Column } from "typeorm";
+import { Entity, PrimaryColumn, Column, PrimaryGeneratedColumn } from "typeorm";
 
 export type statsType = 'M' | 'W';
+export type combiType = 'ATTACK' | 'TANKER';
 export type sending = "ASC" | "DESC";
 
 @Entity("match_stats")
 export class MatchStats {
 
-    @PrimaryColumn()
+    @PrimaryGeneratedColumn()
+    statsId: number;
+
+    @Column("varchar", { length: 10 })
     statsDate: string;
 
-    @PrimaryColumn({
+    @Column({
         type: "enum",
         enum: ["M", "W"],
-        default: "w"
+        default: "W"
     })
     statsType: statsType;
 
-    @PrimaryColumn()
-    combiType: string;
+    @Column({
+        type: "enum",
+        enum: ["ATTACK", "TANKER"],
+        default: "TANKER"
+    })
+    combiType: combiType;
 
     @Column("varchar", { length: 10 })
     statsFromDate: string;
@@ -25,14 +33,14 @@ export class MatchStats {
     @Column("varchar", { length: 10 })
     statsToDate: string;
 
-    @PrimaryColumn({
+    @Column({
         type: "enum",
         enum: ["ASC", "DESC"],
         default: "DESC"
     })
-    order: sending
+    statsOrder: sending
 
-    @PrimaryColumn()
+    @Column("varchar", { length: 200 })
     combi: string;
 
     @Column("int")
